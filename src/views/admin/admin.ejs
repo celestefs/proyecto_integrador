@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <title>Admin | Funkoshop</title>
+</head>
+<body>
+  <%- include('../partials/headerAdmin')%>
+  <main class="main container">
+    <section class="search__bar">
+      <img class="search__bar_img" src="/img/icons/search_icon.svg" alt="lupa de búsqueda">
+      <input type="text" name="searchBar" id="" placeholder="código, nombre o categoría">
+    </section>
+    <section class="table">
+      <article class="table__title">
+        <h2 class="table__subtitle">LISTADO DE PRODUCTOS</h2>
+        <div class="table__subtitle_right">
+          <h3 class="table__subtitle2">AGREGAR</h4>
+            <a href="/admin/create"><img class="table__img" src="/img/icons/plus-fill.svg" alt="signo más"></a>
+        </div>
+      </article>
+      <table class="table__table">
+        <thead>
+          <tr class="table__head">
+            <th>ID</th>
+            <th>Código</th>
+            <th>Nombre del producto</th>
+            <th>Categoría</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="table__body">
+          <% products.forEach(product => { %>
+          <tr>
+            <td><%= product.product_id %></td>
+            <td><%= product.sku %></td>
+            <td><%= product.product_name %></td>
+            <td><%= product.licence_name.toUpperCase() %></td>
+            <td><a href="/admin/edit/<%= product.product_id%>"><img class="table__pencil" src="/img/icons/edit_pencil.svg" alt=""></a></td>
+            <td><form action="/admin/delete/<%= product.product_id %>?_method=DELETE" method="POST" enctype="application/x-www-form-urlencoded"><button class="button_admin" type="submit"><img class="table__trash" src="/img/icons/delete_trash.svg" alt=""></button></form></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </section>
+  </main>
+  <%- include('../partials/footer')%>
+</body>
+</html>
